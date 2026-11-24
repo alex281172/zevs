@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Родословная греческих богов</title>
-<meta name="description" content="Интерактивное родословное древо греческих богов, титанов, чудовищ и героев: от Хаоса до Троянской войны и странствий Одиссея. Все версии мифов, рассказ о каждом персонаже и поиск родства.">
+<meta name="description" content="Интерактивное родословное древо греческих богов, титанов, чудовищ и героев: от Хаоса до аргонавтов, Тесея, Троянской войны и странствий Одиссея. Все версии мифов, рассказ о каждом персонаже и поиск родства.">
 <meta property="og:title" content="Родословная греческих богов">
-<meta property="og:description" content="Кто чей сын, муж и внук: от Хаоса до Троянской войны и Одиссея. Боги, титаны, чудовища и герои на ветвях одного древа.">
+<meta property="og:description" content="Кто чей сын, муж и внук: от Хаоса до аргонавтов, Тесея, Троянской войны и Одиссея. Боги, титаны, чудовища и герои на ветвях одного древа.">
 <meta name="theme-color" content="#B3301D">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='4' fill='%23B3301D'/%3E%3Cpath d='M19 21V5H5v13h10v-8H9v4' fill='none' stroke='%23F6F5F0' stroke-width='2.6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -313,7 +313,7 @@ footer a { color: var(--ink); }
   </div>
 </footer>
 
-<script src="data.js?v=2"></script>
+<script src="data.js?v=3"></script>
 <script>
 (function () {
   "use strict";
@@ -343,8 +343,6 @@ footer a { color: var(--ink); }
     const a = n % 10, b = n % 100;
     return a === 1 && b !== 11 ? one : a >= 2 && a <= 4 && (b < 12 || b > 14) ? few : many;
   }
-  const branchWord = n => ({ 10: "десяти", 11: "одиннадцати", 12: "двенадцати", 13: "тринадцати", 14: "четырнадцати", 15: "пятнадцати",
-    16: "шестнадцати", 17: "семнадцати", 18: "восемнадцати", 19: "девятнадцати", 20: "двадцати" })[n] || String(n);
   const listAnd = arr => arr.length < 2 ? arr.join("") : arr.slice(0, -1).join(", ") + " и " + arr[arr.length - 1];
   document.getElementById("upd").textContent = "Обновлено " + D.updated + ".";
 
@@ -610,7 +608,7 @@ footer a { color: var(--ink); }
     return html + "</ol>";
   }
   function pathForm(a, b, useVar) {
-    const examples = [["achilles", "hector"], ["odysseus", "hermes"], ["aeneas", "hector"], ["heracles", "perseus"], ["medea", "ariadne"]];
+    const examples = [["theseus", "minotaur"], ["jason", "nestor"], ["achilles", "hector"], ["odysseus", "hermes"], ["aeneas", "hector"]];
     return `
       <form class="pathform" id="pathform" autocomplete="off">
         <div class="field"><label for="pa">Первый</label><input id="pa" list="names" value="${a ? esc(by[a].n) : ""}" placeholder="Например, Геракл"></div>
@@ -648,7 +646,7 @@ footer a { color: var(--ink); }
       <section class="hero">
         <div>
           <h1>Родословная греческих богов</h1>
-          <p class="lede">Кто чей сын, муж и внук — от первозданного Хаоса до Троянской войны и странствий Одиссея. ${total} ${plural(total, "персонаж", "персонажа", "персонажей")}: боги, титаны, нимфы, чудовища и герои на ${branchWord(D.B.length)} ветвях древа. Где мифы спорят между собой, показаны все версии.</p>
+          <p class="lede">Кто чей сын, муж и внук — от первозданного Хаоса до аргонавтов, Тесея, Троянской войны и странствий Одиссея. ${total} ${plural(total, "персонаж", "персонажа", "персонажей")}: боги, титаны, нимфы, чудовища и герои на ветвях одного древа. Где мифы спорят между собой, показаны все версии.</p>
           <div class="btns">
             <a class="btn solid" href="#/v/pervye">Начать с Хаоса</a>
             <a class="btn" href="#/path">Как связаны два персонажа</a>
@@ -808,7 +806,7 @@ footer a { color: var(--ink); }
           }).join("")}</ul></div>` : ""}
         </article>
         <aside class="fam" aria-label="Семья">
-          <section><h3>Родители</h3>${par}${memberOf}</section>
+          ${(g.p || []).length || g.pn || g.pv || g.s !== "pl" ? `<section><h3>Родители</h3>${par}${memberOf}</section>` : ""}
           ${sib.length ? `<section><h3>Братья и сёстры</h3><p>${sib.map(x => nm(x)).join(", ")}</p></section>` : ""}
           ${spHTML ? `<section><h3>Супруги и возлюбленные</h3>${spHTML}</section>` : ""}
           ${kidsHTML ? `<section><h3>Дети</h3>${kidsHTML}</section>` : ""}
@@ -832,7 +830,7 @@ footer a { color: var(--ink); }
     }
   }
   function memberId(head, groupId) {
-    const m = D.G.find(o => o.of === groupId && (o.n === head || o.n.startsWith(head + "-")));
+    const m = D.G.find(o => o.of === groupId && (o.n === head || o.n.startsWith(head + "-"))) || D.G.find(o => o.n === head);
     return m ? m.id : null;
   }
 
