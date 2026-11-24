@@ -86,7 +86,7 @@ h1, h2, h3 { font-family: var(--f-text); font-weight: 700; line-height: 1.15; ma
 .top .wrap { display: flex; align-items: center; gap: 14px 26px; padding-top: 14px; padding-bottom: 14px; flex-wrap: wrap; }
 .brand { font: 700 21px/1.15 var(--f-text); color: var(--ink); text-decoration: none; margin-right: auto; }
 .brand:hover { color: var(--red); }
-.nav { display: flex; gap: 20px; font: 500 16px/1.2 var(--f-ui); }
+.nav { display: flex; flex-wrap: wrap; gap: 4px 20px; font: 500 16px/1.2 var(--f-ui); }
 .nav a { color: var(--ink); text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; }
 .nav a:hover, .nav a[aria-current="page"] { border-bottom-color: var(--red); color: var(--ink); }
 .search { position: relative; width: 250px; }
@@ -247,6 +247,53 @@ footer p { margin: 0 0 .6em; max-width: 70ch; }
 footer a { color: var(--ink); }
 .notfound { padding-top: 60px; }
 
+
+/* ---------- Всё древо ---------- */
+body.mapmode footer { display: none; }
+body.mapmode main.wrap { max-width: none; padding: 0; min-height: 0; }
+.mapview { position: relative; overflow: hidden; background: var(--box); touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; outline: none; }
+.mapview.drag { cursor: grabbing; }
+.mapview:focus-visible { box-shadow: inset 0 0 0 2px var(--red); }
+.mapinner { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+.mapedges { position: absolute; left: 0; top: 0; overflow: visible; }
+.mapedges path { fill: none; stroke: var(--muted); stroke-width: 1.3; opacity: .7; }
+.mapedges path.pu { stroke: var(--red); opacity: .6; }
+.mapedges path.pu.l, .mapedges path.pu.c { stroke-dasharray: 3 3; }
+.mapedges path.pu.np { stroke: var(--muted); }
+.mapedges circle { fill: var(--box); stroke: var(--red); stroke-width: 1.6; }
+.stubtag { position: absolute; transform: translate(-2px, -100%); font: 500 12.5px/1.2 var(--f-ui); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 3px 8px; white-space: nowrap; cursor: pointer; }
+.stubtag.left { transform: translate(calc(-100% + 2px), -100%); }
+.stubtag:hover { border-color: var(--red); color: var(--red); }
+.mapview.sel .stubtag { opacity: .25; }
+.mapview.sel .stubtag.on { opacity: 1; border-color: var(--red); }
+.mapview.sel .mapedges path, .mapview.sel .mapedges circle { opacity: .1; }
+.mapview.sel .mapedges .on { opacity: 1; stroke-width: 2.4; }
+.mapview.sel .leaf { opacity: .32; }
+.mapview.sel .leaf.on { opacity: 1; }
+.mapview .leaf.cur { outline: 3px solid var(--red); outline-offset: 3px; }
+.mapview.far .leaf span { display: none; }
+.mapview.far .leaf b { font-size: 19px; line-height: 1.05; white-space: normal; }
+.isolabel { position: absolute; font: 700 22px/1.2 var(--f-text); color: var(--muted); white-space: nowrap; }
+.maptools { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 5; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; pointer-events: none; }
+.maptools > * { pointer-events: auto; }
+.maptools input { width: 250px; font: 400 16px/1.3 var(--f-ui); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; }
+.maptools input:focus { outline: 2px solid var(--blue); outline-offset: 0; border-color: transparent; }
+.maptools button { min-width: 40px; height: 38px; padding: 0 12px; font: 600 16px/1 var(--f-ui); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 6px; cursor: pointer; }
+.maptools button:hover { border-color: var(--red); color: var(--red); }
+.maphint { position: absolute; right: 12px; bottom: 12px; margin: 0; max-width: 380px; font: 400 13.5px/1.4 var(--f-ui); color: var(--muted); background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; }
+.mappanel { position: absolute; left: 12px; bottom: 12px; z-index: 6; width: min(380px, calc(100% - 24px)); background: var(--paper); border: 1px solid var(--line); border-top: 4px solid var(--kc); border-radius: 8px; padding: 12px 40px 12px 16px; box-shadow: 0 8px 28px rgba(20, 22, 30, .18); font: 400 15.5px/1.45 var(--f-ui); cursor: auto; }
+.mappanel[hidden] { display: none; }
+.mappanel b { font: 700 22px/1.2 var(--f-text); }
+.mappanel .mpgr { font: italic 400 17px var(--f-text); color: var(--red); }
+.mappanel p { margin: 4px 0 0; }
+.mappanel .mpfam { color: var(--muted); }
+.mpclose { position: absolute; top: 6px; right: 8px; border: 0; background: none; font-size: 26px; line-height: 1; color: var(--muted); cursor: pointer; padding: 2px 6px; }
+.mpclose:hover { color: var(--red); }
+@media (max-width: 640px) {
+  .maphint { display: none; }
+  body.mapmode .search { display: none; }
+  .maptools input { flex: 1 1 150px; width: auto; min-width: 0; }
+}
 @media (max-width: 900px) {
   .hero, .god-grid { grid-template-columns: 1fr; gap: 36px; }
   .branches { grid-template-columns: 1fr; }
@@ -282,7 +329,8 @@ footer a { color: var(--ink); }
   <div class="wrap">
     <a class="brand" href="#/">Родословная греческих богов</a>
     <nav class="nav" aria-label="Разделы">
-      <a href="#/vetvi" data-nav="vetvi">Древо</a>
+      <a href="#/map" data-nav="map">Всё древо</a>
+      <a href="#/vetvi" data-nav="vetvi">Ветви</a>
       <a href="#/all" data-nav="all">Все персонажи</a>
       <a href="#/path" data-nav="path">Как связаны</a>
     </nav>
@@ -313,7 +361,7 @@ footer a { color: var(--ink); }
   </div>
 </footer>
 
-<script src="data.js?v=3"></script>
+<script src="data.js?v=4"></script>
 <script>
 (function () {
   "use strict";
@@ -648,7 +696,8 @@ footer a { color: var(--ink); }
           <h1>Родословная греческих богов</h1>
           <p class="lede">Кто чей сын, муж и внук — от первозданного Хаоса до аргонавтов, Тесея, Троянской войны и странствий Одиссея. ${total} ${plural(total, "персонаж", "персонажа", "персонажей")}: боги, титаны, нимфы, чудовища и герои на ветвях одного древа. Где мифы спорят между собой, показаны все версии.</p>
           <div class="btns">
-            <a class="btn solid" href="#/v/pervye">Начать с Хаоса</a>
+            <a class="btn solid" href="#/map">Открыть всё древо</a>
+            <a class="btn" href="#/v/pervye">Начать с Хаоса</a>
             <a class="btn" href="#/path">Как связаны два персонажа</a>
           </div>
         </div>
@@ -821,7 +870,8 @@ footer a { color: var(--ink); }
       <section class="section" style="margin-top:40px">
         <h2 style="font-size:26px">${brs.length ? "На ветвях древа" : "Родство"}</h2>
         ${brs.length ? `<ul class="chips">${brs.map(b => `<li><a class="k-${g.k}" href="#/v/${b.id}/${id}">${esc(b.n)}</a></li>`).join("")}</ul>` : ""}
-        <p style="margin-top:16px" class="ui"><a href="#/path/${id}/${pathTarget}">Как ${esc(g.n)} ${g.s === "pl" ? "связаны" : "связан" + (g.s === "f" ? "а" : "")} с ${pathTarget === "zeus" ? "Зевсом" : "Ураном"}</a></p>
+        <p style="margin-top:16px" class="ui"><a href="#/map/${id}">Найти на общем древе</a></p>
+        <p style="margin-top:6px" class="ui"><a href="#/path/${id}/${pathTarget}">Как ${esc(g.n)} ${g.s === "pl" ? "связаны" : "связан" + (g.s === "f" ? "а" : "")} с ${pathTarget === "zeus" ? "Зевсом" : "Ураном"}</a></p>
       </section>`;
     if (ego.count > 1) {
       const draw = () => drawTree(document.getElementById("tree"), ego.nodes, { me: id, allArcs: true });
@@ -865,14 +915,447 @@ footer a { color: var(--ink); }
     app.innerHTML = `<div class="notfound"><h1>Такой страницы нет</h1><p class="lede" style="margin-top:12px">Возможно, ссылка устарела. Найдите персонажа через поиск вверху или <a href="#/">вернитесь на главную</a>.</p></div>`;
   }
 
+  /* ---------- всё древо: автоматическая раскладка ---------- */
+  const MAPG = { W: 128, CH: 64, ROW: 200, M: 80 };
+  let MAPL = null;
+  function layoutAll() {
+    if (MAPL) return MAPL;
+    const t0 = performance.now();
+    const P = id => by[id].p || [];
+    const kids = id => kidsOf[id] || [];
+    const fams = new Map(), fk = (a, b) => [a, b].sort().join("+");
+    const getF = (a, b) => {
+      const k = fk(a, b);
+      let f = fams.get(k);
+      if (!f) { f = { k, a, b, kids: [], t: null }; fams.set(k, f); }
+      return f;
+    };
+    D.G.forEach(g => { const p = P(g.id); if (p.length >= 2) getF(p[0], p[1]).kids.push(g.id); });
+    D.U.forEach(([a, b, t]) => { getF(a, b).t = t; });
+    const partners = {}, pw = {};
+    fams.forEach(f => {
+      (partners[f.a] = partners[f.a] || []).push(f.b);
+      (partners[f.b] = partners[f.b] || []).push(f.a);
+      pw[f.k] = f.kids.length ? 1.5 : f.t === "c" ? 0.1 : 0.4;
+    });
+    const linked = id => P(id).length || kids(id).length || (partners[id] || []).length;
+    const live = D.G.map(g => g.id).filter(linked);
+    const iso = D.G.map(g => g.id).filter(id => !linked(id));
+
+    // поколения: сначала самый длинный путь, затем подтягиваем супругов и родителей поближе
+    const topo = [], seen = {};
+    const visit = x => { if (seen[x]) return; seen[x] = 1; P(x).forEach(visit); topo.push(x); };
+    live.forEach(visit);
+    const rank = {};
+    topo.forEach(x => { rank[x] = P(x).length ? Math.max(...P(x).map(p => rank[p])) + 1 : 0; });
+    for (let it = 0; it < 80; it++) {
+      (it % 2 ? topo.slice().reverse() : topo).forEach(x => {
+        const ps = P(x), cs = kids(x), ss = partners[x] || [];
+        const lo = ps.length ? Math.max(...ps.map(p => rank[p])) + 1 : -1e9;
+        const hi = cs.length ? Math.min(...cs.map(c => rank[c])) - 1 : 1e9;
+        let s = 0, w = 0;
+        ps.forEach(p => { s += rank[p] + 1; w += 1; });
+        cs.forEach(c => { s += rank[c] - 1; w += 1; });
+        ss.forEach(q => { const k = pw[fk(x, q)]; s += rank[q] * k; w += k; });
+        if (w) rank[x] = Math.max(lo, Math.min(hi, Math.round(s / w)));
+      });
+    }
+    const r0 = Math.min(...live.map(x => rank[x]));
+    live.forEach(x => { rank[x] -= r0; });
+
+    // узлы по слоям: чётные — персонажи, нечётные — точки союзов; длинные линии идут через вспомогательные точки
+    const layers = [], nodes = {};
+    const add = (key, layer, type, extra) => {
+      const n = Object.assign({ key, layer, type, up: [], dn: [], pos: 0 }, extra);
+      nodes[key] = n;
+      (layers[layer] = layers[layer] || []).push(n);
+      return n;
+    };
+    const key0 = {};
+    D.B.forEach((b, bi) => b.nodes.forEach(([id, c]) => { if (key0[id] == null) key0[id] = bi * 40 + c; }));
+    live.forEach(id => add(id, 2 * rank[id], "p", { id, pos: key0[id] != null ? key0[id] : 1e4 }));
+    const edges = [], stubs = [];
+    let dn = 0;
+    function link(u, v, cls, owners, maxSpan, far, label) {
+      if (v.layer - u.layer > maxSpan) { stubs.push({ near: v, far, label, cls, owners }); return; }
+      const chain = [u];
+      for (let L = u.layer + 1; L < v.layer; L++) {
+        const t = (L - u.layer) / (v.layer - u.layer);
+        chain.push(add("d" + (dn++), L, "d", { pos: u.pos + (v.pos - u.pos) * t }));
+      }
+      chain.push(v);
+      for (let i = 0; i < chain.length - 1; i++) { chain[i].dn.push(chain[i + 1]); chain[i + 1].up.push(chain[i]); }
+      edges.push({ chain, cls, owners, far, label });
+    }
+    fams.forEach(f => {
+      const a = nodes[f.a], b = nodes[f.b];
+      const dot = add("f:" + f.k, 2 * Math.max(rank[f.a], rank[f.b]) + 1, "f", { f, pos: (a.pos + b.pos) / 2 });
+      const own = [f.a, f.b].concat(f.kids), cls = "pu " + (f.t || "np");
+      link(a, dot, cls, own, 3, f.a, by[f.a].n);
+      link(b, dot, cls, own, 3, f.b, by[f.b].n);
+      f.kids.forEach(c => link(dot, nodes[c], "pc", [f.a, f.b, c], 3, f.a, by[f.a].n + " и " + by[f.b].n));
+    });
+    live.forEach(id => { const p = P(id); if (p.length === 1) link(nodes[p[0]], nodes[id], "pc", [p[0], id], 4, p[0], by[p[0]].n); });
+
+    // порядок внутри слоёв: барицентры, лучший вариант по числу пересечений
+    const NL = layers.length;
+    for (let L = 0; L < NL; L++) layers[L] = layers[L] || [];
+    const reindex = () => layers.forEach(l => l.forEach((n, i) => { n.i = i; }));
+    layers.forEach(l => l.sort((a, b) => a.pos - b.pos));
+    reindex();
+    function crossings() {
+      let c = 0;
+      for (let L = 0; L < NL - 1; L++) {
+        const es = [];
+        layers[L].forEach(n => n.dn.forEach(m => es.push(n.i * 4096 + m.i)));
+        es.sort((a, b) => a - b);
+        const tail = es.map(e => e % 4096);
+        for (let i = 0; i < tail.length; i++) for (let j = i + 1; j < tail.length; j++) if (tail[j] < tail[i]) c++;
+      }
+      return c;
+    }
+    const snap = () => layers.map(l => l.slice());
+    function pairCross(u, v) {
+      let c = 0;
+      u.up.forEach(a => v.up.forEach(b => { if (a.i > b.i) c++; }));
+      u.dn.forEach(a => v.dn.forEach(b => { if (a.i > b.i) c++; }));
+      return c;
+    }
+    // супруги из одного поколения держатся рядом: самый «женатый» в середине, остальные по сторонам
+    const clusterOf = {};
+    live.forEach(id => {
+      if (clusterOf[id]) return;
+      const L0 = nodes[id].layer, comp = [], stack = [id];
+      clusterOf[id] = comp;
+      while (stack.length) {
+        const x = stack.pop();
+        comp.push(x);
+        (partners[x] || []).forEach(y => { if (!clusterOf[y] && nodes[y] && nodes[y].layer === L0) { clusterOf[y] = comp; stack.push(y); } });
+      }
+    });
+    function regroup() {
+      layers.forEach((l, L) => {
+        if (L % 2) return;
+        const out = [], done = new Set();
+        l.forEach(n => {
+          const comp = clusterOf[n.id];
+          if (!comp || comp.length < 2) { out.push(n); return; }
+          if (done.has(comp)) return;
+          done.add(comp);
+          const ms = comp.map(id => nodes[id]);
+          const deg = m => (partners[m.id] || []).filter(y => comp.includes(y)).length;
+          const center = ms.reduce((a, b) => deg(b) > deg(a) ? b : a);
+          const bc = m => m.bc != null ? m.bc : m.i;
+          const others = ms.filter(m => m !== center).sort((a, b) => bc(a) - bc(b));
+          const left = others.filter(m => bc(m) < bc(center)), right = others.filter(m => bc(m) >= bc(center));
+          if (!left.length && right.length > 1) left.push(right.shift());
+          out.push(...left, center, ...right);
+        });
+        layers[L] = out;
+        out.forEach((n, i) => { n.i = i; });
+      });
+    }
+    function transpose() {
+      for (let pass = 0, changed = true; changed && pass < 12; pass++) {
+        changed = false;
+        layers.forEach(l => {
+          for (let i = 0; i + 1 < l.length; i++) {
+            const u = l[i], v = l[i + 1];
+            if (pairCross(v, u) < pairCross(u, v)) {
+              l[i] = v; l[i + 1] = u; v.i = i; u.i = i + 1; changed = true;
+            }
+          }
+        });
+      }
+    }
+    let best = Infinity, bestOrd = snap();
+    for (let it = 0; it < 28; it++) {
+      const down = it % 2 === 0;
+      for (let s = 1; s < NL; s++) {
+        const L = down ? s : NL - 1 - s, l = layers[L];
+        l.forEach(n => {
+          const nb = down ? n.up : n.dn;
+          n.bc = nb.length ? nb.reduce((t, m) => t + m.i, 0) / nb.length : n.i;
+        });
+        l.sort((a, b) => a.bc - b.bc || a.i - b.i);
+        l.forEach((n, i) => { n.i = i; });
+      }
+      transpose();
+      regroup();
+      const c = crossings();
+      if (c < best) { best = c; bestOrd = snap(); }
+    }
+    bestOrd.forEach((l, L) => { layers[L] = l; });
+    reindex();
+
+    // координаты по горизонтали: каждый узел тянется к соседям, порядок и зазоры сохраняются
+    const W = MAPG.W;
+    const wOf = n => n.type === "p" ? W : n.type === "f" ? 12 : 4;
+    const sep = (a, b) => (wOf(a) + wOf(b)) / 2 + (a.type === "p" && b.type === "p" ? 24 : 9);
+    layers.forEach(l => {
+      let x = 0;
+      l.forEach((n, i) => { if (i) x += sep(l[i - 1], n); n.x = x; });
+      l.forEach(n => { n.x -= x / 2; });
+    });
+    function place(l, want, wt) {
+      const off = [0];
+      for (let i = 1; i < l.length; i++) off[i] = off[i - 1] + sep(l[i - 1], l[i]);
+      const blocks = [];
+      l.forEach((n, i) => {
+        blocks.push({ s: (want[i] - off[i]) * wt[i], w: wt[i], c: 1 });
+        while (blocks.length > 1) {
+          const b = blocks[blocks.length - 1], a = blocks[blocks.length - 2];
+          if (a.s / a.w <= b.s / b.w) break;
+          a.s += b.s; a.w += b.w; a.c += b.c; blocks.pop();
+        }
+      });
+      let i = 0;
+      blocks.forEach(b => { const v = b.s / b.w; for (let k = 0; k < b.c; k++, i++) l[i].x = v + off[i]; });
+    }
+    for (let it = 0; it < 60; it++) {
+      const down = it % 2 === 0;
+      for (let s = 0; s < NL; s++) {
+        const l = layers[down ? s : NL - 1 - s];
+        if (!l.length) continue;
+        const want = l.map(n => {
+          const nb = n.up.concat(n.dn);
+          if (!nb.length) return n.x;
+          let t = 0, w = 0;
+          nb.forEach(m => { const k = n.type === "d" && m.type === "d" ? 3 : m.type === "d" || n.type === "d" ? 2 : 1; t += m.x * k; w += k; });
+          return t / w;
+        });
+        place(l, want, l.map(n => n.type === "p" ? 1 : n.type === "f" ? 2 : 1.5));
+      }
+    }
+
+    // высоты и итоговые координаты
+    const yTop = L => (L >> 1) * MAPG.ROW;
+    const yOf = n => n.layer % 2 === 0 ? yTop(n.layer) + MAPG.CH / 2 : yTop(n.layer - 1) + MAPG.CH + (MAPG.ROW - MAPG.CH) / 2;
+    let minX = Infinity, maxX = -Infinity;
+    layers.forEach(l => l.forEach(n => { minX = Math.min(minX, n.x - wOf(n) / 2); maxX = Math.max(maxX, n.x + wOf(n) / 2); }));
+    const isoRow = (NL >> 1) + 1;
+    const perRow = Math.max(6, Math.floor((maxX - minX) / (W + 24)));
+    const isoSorted = iso.slice().sort((a, b) => ru(by[a].n, by[b].n));
+    const isoRows = Math.ceil(isoSorted.length / perRow);
+    const dx = MAPG.M - minX, dy = MAPG.M;
+    const cards = [];
+    layers.forEach(l => l.forEach(n => { if (n.type === "p") cards.push({ id: n.id, x: n.x + dx - W / 2, y: yTop(n.layer) + dy }); }));
+    isoSorted.forEach((id, i) => cards.push({ id, x: MAPG.M + (i % perRow) * (W + 24), y: dy + (isoRow + Math.floor(i / perRow)) * MAPG.ROW * 0.6 + 40, iso: true }));
+    const pt = (n, end) => {
+      if (n.type === "p") return [n.x + dx, yTop(n.layer) + dy + (end ? 0 : MAPG.CH)];
+      return [n.x + dx, yOf(n) + dy];
+    };
+    const FAR = 1700;
+    edges.filter(e => Math.abs(e.chain[0].x - e.chain[e.chain.length - 1].x) > FAR)
+      .forEach(e => { e.cut = true; stubs.push({ near: e.chain[e.chain.length - 1], far: e.far, label: e.label, cls: e.cls, owners: e.owners }); });
+    const paths = edges.filter(e => !e.cut).map(e => {
+      const ps = e.chain.map((n, i) => pt(n, i === e.chain.length - 1));
+      let d = `M${ps[0][0].toFixed(1)} ${ps[0][1].toFixed(1)}`;
+      for (let i = 1; i < ps.length; i++) {
+        const [x1, y1] = ps[i - 1], [x2, y2] = ps[i], h = (y2 - y1) / 2;
+        d += `C${x1.toFixed(1)} ${(y1 + h).toFixed(1)} ${x2.toFixed(1)} ${(y2 - h).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+      }
+      return { d, cls: e.cls, owners: e.owners };
+    });
+    const taken = [];
+    const stubTags = stubs.map(st => {
+      const [x, y] = pt(st.near, true);
+      const fx = nodes[st.far] ? nodes[st.far].x + dx : x;
+      const dir = fx < x - 1 ? -1 : 1, w = st.label.length * 7.2 + 26;
+      let tx = x + dir * 22;
+      const ty = y - 34;
+      const box = xx => dir < 0 ? [xx - w, ty - 24, xx, ty] : [xx, ty - 24, xx + w, ty];
+      const hit = b => taken.some(t => b[0] < t[2] && b[2] > t[0] && b[1] < t[3] && b[3] > t[1]);
+      while (hit(box(tx))) tx += dir * 30;
+      taken.push(box(tx));
+      return { x, y, tx, ty, dir, label: st.label, far: st.far, owners: st.owners, cls: st.cls };
+    });
+    const dots = [];
+    fams.forEach(f => { const n = nodes["f:" + f.k]; dots.push({ x: n.x + dx, y: yOf(n) + dy, owners: [f.a, f.b].concat(f.kids), t: f.t }); });
+    const width = maxX - minX + 2 * MAPG.M;
+    const height = dy + (isoRow + isoRows) * MAPG.ROW * 0.6 + MAPG.ROW + 80;
+    const isoLabelY = dy + isoRow * MAPG.ROW * 0.6;
+    MAPL = { cards, paths, dots, stubs: stubTags, width, height, isoLabelY, hasIso: iso.length > 0, partners, ms: Math.round(performance.now() - t0), crossings: best };
+    return MAPL;
+  }
+
+  /* ---------- всё древо: страница с перетаскиванием и масштабом ---------- */
+  let mapCleanup = null;
+  function renderMap(focusId) {
+    document.title = "Всё древо — Родословная греческих богов";
+    document.body.classList.add("mapmode");
+    const L = layoutAll();
+    const pos = {};
+    L.cards.forEach(c => { pos[c.id] = c; });
+    app.innerHTML = `
+      <div class="mapview" id="mapview" data-ms="${L.ms}" tabindex="0" aria-label="Всё древо. Перетаскивайте, чтобы двигаться; плюс и минус меняют масштаб.">
+        <div class="mapinner" id="mapinner" style="width:${L.width}px;height:${L.height}px">
+          <svg class="mapedges" width="${L.width}" height="${L.height}" aria-hidden="true">
+            ${L.paths.map(p => `<path class="${p.cls}" data-o="${p.owners.join(" ")}" d="${p.d}"/>`).join("")}
+            ${L.stubs.map(st => `<path class="${st.cls} stub" data-o="${st.owners.join(" ")}" d="M${st.x.toFixed(1)} ${st.y.toFixed(1)}C${st.x.toFixed(1)} ${(st.y - 14).toFixed(1)} ${st.tx.toFixed(1)} ${(st.ty + 14).toFixed(1)} ${st.tx.toFixed(1)} ${st.ty.toFixed(1)}"/>`).join("")}
+            ${L.dots.map(d => `<circle data-o="${d.owners.join(" ")}" cx="${d.x.toFixed(1)}" cy="${d.y.toFixed(1)}" r="4.5"/>`).join("")}
+          </svg>
+          ${L.hasIso ? `<div class="isolabel" style="left:${MAPG.M}px;top:${L.isoLabelY - 6}px">Персонажи, чья родня не показана на древе</div>` : ""}
+          ${L.cards.map(c => {
+            const g = by[c.id];
+            return `<a class="leaf k-${g.k}${g.n.length > 11 ? " long" : ""}${g.s === "pl" ? " grp" : ""}" data-id="${c.id}" href="#/g/${c.id}" style="left:${c.x.toFixed(1)}px;top:${c.y.toFixed(1)}px;width:${MAPG.W}px;height:${MAPG.CH}px"><b>${esc(g.n)}</b><span>${esc(g.d || "")}</span></a>`;
+          }).join("")}
+          ${L.stubs.map(st => `<button type="button" class="stubtag${st.dir < 0 ? " left" : ""}" data-far="${st.far}" data-o="${st.owners.join(" ")}" style="left:${st.tx.toFixed(1)}px;top:${st.ty.toFixed(1)}px" title="Показать на древе">↑ ${esc(st.label)}</button>`).join("")}
+        </div>
+        <div class="maptools">
+          <input id="mapq" type="search" list="mapnames" placeholder="Найти на древе" aria-label="Найти персонажа на древе" autocomplete="off">
+          <datalist id="mapnames">${D.G.slice().sort((x, y) => ru(x.n, y.n)).map(g => `<option value="${esc(g.n)}">`).join("")}</datalist>
+          <button type="button" id="zin" aria-label="Приблизить">+</button>
+          <button type="button" id="zout" aria-label="Отдалить">−</button>
+          <button type="button" id="zfit">Показать всё</button>
+        </div>
+        <p class="maphint">Перетаскивайте древо мышью или пальцем. Колесо и тачпад двигают его, Ctrl + колесо или щипок меняют масштаб.</p>
+        <div class="mappanel" id="mappanel" hidden></div>
+      </div>`;
+    const view = document.getElementById("mapview"), inner = document.getElementById("mapinner"), panel = document.getElementById("mappanel");
+    const fitHeight = () => { view.style.height = Math.max(320, window.innerHeight - view.getBoundingClientRect().top) + "px"; };
+    fitHeight();
+    let k = 0.8, tx = 0, ty = 0;
+    const apply = () => {
+      inner.style.transform = `translate(${tx}px,${ty}px) scale(${k})`;
+      view.classList.toggle("far", k < 0.55);
+    };
+    const clampK = v => Math.max(0.12, Math.min(2, v));
+    const zoomAt = (cx, cy, f) => {
+      const nk = clampK(k * f);
+      tx = cx - (cx - tx) * (nk / k);
+      ty = cy - (cy - ty) * (nk / k);
+      k = nk;
+      apply();
+    };
+    const center = (id, nk) => {
+      const c = pos[id];
+      if (!c) return;
+      if (nk) k = clampK(nk);
+      tx = view.clientWidth / 2 - (c.x + MAPG.W / 2) * k;
+      ty = view.clientHeight / 2 - (c.y + MAPG.CH / 2) * k;
+      apply();
+    };
+    const fit = () => {
+      k = clampK(Math.min(view.clientWidth / L.width, view.clientHeight / L.height) * 0.96);
+      tx = (view.clientWidth - L.width * k) / 2;
+      ty = (view.clientHeight - L.height * k) / 2;
+      apply();
+    };
+
+    // выделение: родители, дети, супруги
+    let current = null;
+    function select(id, move) {
+      view.querySelectorAll(".on, .cur").forEach(el => el.classList.remove("on", "cur"));
+      current = id;
+      if (!id) { view.classList.remove("sel"); panel.hidden = true; return; }
+      const g = by[id];
+      const rel = new Set([id].concat(g.p || [], kidsOf[id] || [], L.partners[id] || []));
+      view.classList.add("sel");
+      view.querySelectorAll(".mapedges [data-o], .stubtag").forEach(el => { if (el.dataset.o.split(" ").includes(id)) el.classList.add("on"); });
+      view.querySelectorAll(".leaf").forEach(el => { if (rel.has(el.dataset.id)) el.classList.add("on"); });
+      const me = view.querySelector(`.leaf[data-id="${id}"]`);
+      if (me) me.classList.add("cur");
+      const nk = (kidsOf[id] || []).length, np = (L.partners[id] || []).length;
+      panel.className = "mappanel k-" + g.k;
+      panel.innerHTML = `<button type="button" class="mpclose" aria-label="Снять выделение">×</button>
+        <b>${esc(g.n)}</b>${g.gr ? ` <span class="mpgr" lang="grc">${esc(g.gr)}</span>` : ""}
+        <p>${esc(g.d ? g.d[0].toUpperCase() + g.d.slice(1) : D.kinds[g.k].one)}.</p>
+        <p class="mpfam">${(g.p || []).length ? "Родители: " + (g.p || []).map(x => esc(by[x].n)).join(" и ") + ". " : ""}${np ? "Союзов: " + np + ". " : ""}${nk ? "Детей: " + nk + "." : ""}</p>
+        <p class="mplinks"><a href="#/g/${id}">Открыть страницу персонажа</a></p>`;
+      panel.hidden = false;
+      panel.querySelector(".mpclose").addEventListener("click", () => select(null));
+      if (move) center(id, Math.max(k, 0.9));
+    }
+
+    // перетаскивание и щипок
+    const pts = new Map();
+    let moved = 0, downLeaf = null, pinch = null;
+    view.addEventListener("pointerdown", e => {
+      if (e.target.closest(".maptools, .mappanel, .maphint")) return;
+      view.setPointerCapture(e.pointerId);
+      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pts.size === 1) { moved = 0; downLeaf = e.target.closest(".leaf, .stubtag"); view.classList.add("drag"); }
+      if (pts.size === 2) {
+        const [a, b] = [...pts.values()];
+        pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) };
+      }
+    });
+    view.addEventListener("pointermove", e => {
+      const p = pts.get(e.pointerId);
+      if (!p) return;
+      const r = view.getBoundingClientRect();
+      if (pts.size === 1) {
+        tx += e.clientX - p.x; ty += e.clientY - p.y;
+        moved += Math.abs(e.clientX - p.x) + Math.abs(e.clientY - p.y);
+        p.x = e.clientX; p.y = e.clientY;
+        apply();
+      } else if (pts.size === 2 && pinch) {
+        p.x = e.clientX; p.y = e.clientY;
+        const [a, b] = [...pts.values()], d = Math.hypot(a.x - b.x, a.y - b.y);
+        zoomAt((a.x + b.x) / 2 - r.left, (a.y + b.y) / 2 - r.top, d / pinch.d);
+        pinch.d = d;
+        moved = 99;
+      }
+    });
+    const up = e => {
+      if (!pts.has(e.pointerId)) return;
+      pts.delete(e.pointerId);
+      if (pts.size < 2) pinch = null;
+      if (pts.size === 0) {
+        view.classList.remove("drag");
+        if (moved < 6) {
+          if (downLeaf && downLeaf.classList.contains("stubtag")) select(downLeaf.dataset.far, true);
+          else select(downLeaf ? downLeaf.dataset.id : null);
+        }
+        downLeaf = null;
+      }
+    };
+    view.addEventListener("pointerup", up);
+    view.addEventListener("pointercancel", up);
+    view.addEventListener("click", e => { if (e.target.closest(".leaf")) e.preventDefault(); });
+    view.addEventListener("keydown", e => {
+      if (e.target.closest("input")) return;
+      const step = 90;
+      if (e.key === "Enter" && e.target.closest(".leaf")) { select(e.target.closest(".leaf").dataset.id); e.preventDefault(); return; }
+      const keys = { ArrowLeft: [step, 0], ArrowRight: [-step, 0], ArrowUp: [0, step], ArrowDown: [0, -step] };
+      if (keys[e.key]) { tx += keys[e.key][0]; ty += keys[e.key][1]; apply(); e.preventDefault(); }
+      else if (e.key === "+" || e.key === "=") { zoomAt(view.clientWidth / 2, view.clientHeight / 2, 1.25); e.preventDefault(); }
+      else if (e.key === "-") { zoomAt(view.clientWidth / 2, view.clientHeight / 2, 0.8); e.preventDefault(); }
+      else if (e.key === "Escape") select(null);
+    });
+    view.addEventListener("wheel", e => {
+      if (e.target.closest(".maptools, .mappanel")) return;
+      e.preventDefault();
+      const r = view.getBoundingClientRect(), unit = e.deltaMode === 1 ? 32 : e.deltaMode === 2 ? view.clientHeight : 1;
+      if (e.ctrlKey || e.metaKey) zoomAt(e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * unit * 0.0025));
+      else if (e.shiftKey && !e.deltaX) { tx -= e.deltaY * unit; apply(); }
+      else { tx -= e.deltaX * unit; ty -= e.deltaY * unit; apply(); }
+    }, { passive: false });
+    document.getElementById("zin").addEventListener("click", () => zoomAt(view.clientWidth / 2, view.clientHeight / 2, 1.3));
+    document.getElementById("zout").addEventListener("click", () => zoomAt(view.clientWidth / 2, view.clientHeight / 2, 1 / 1.3));
+    document.getElementById("zfit").addEventListener("click", () => { select(null); fit(); });
+    const mq = document.getElementById("mapq");
+    const findOnMap = () => { const id = findId(mq.value); if (id && pos[id]) { select(id, true); mq.blur(); } };
+    mq.addEventListener("change", findOnMap);
+    mq.addEventListener("keydown", e => { if (e.key === "Enter") { findOnMap(); e.preventDefault(); } });
+
+    const onResize = () => { fitHeight(); apply(); };
+    window.addEventListener("resize", onResize);
+    mapCleanup = () => { window.removeEventListener("resize", onResize); document.body.classList.remove("mapmode"); };
+    if (focusId && pos[focusId]) select(focusId, true);
+    else center("zeus", 0.75);
+  }
+
   /* ---------- маршруты ---------- */
   let redraw = null, lastRoute = "";
   function route() {
     const parts = location.hash.replace(/^#\/?/, "").split("/").filter(Boolean).map(decodeURIComponent);
     redraw = null;
+    if (mapCleanup) { mapCleanup(); mapCleanup = null; }
     const [r, x, y, z] = parts;
     document.title = "Родословная греческих богов";
-    const navKey = r === "v" || r === "vetvi" ? "vetvi" : r === "all" ? "all" : r === "path" ? "path" : "";
+    const navKey = r === "v" || r === "vetvi" ? "vetvi" : r === "all" ? "all" : r === "path" ? "path" : r === "map" ? "map" : "";
     document.querySelectorAll("[data-nav]").forEach(a => { if (a.dataset.nav === navKey) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
     const key = parts.join("/");
     if (!r) renderHome();
@@ -881,6 +1364,7 @@ footer a { color: var(--ink); }
     else if (r === "g" && x) renderGod(x);
     else if (r === "all") renderAll(x);
     else if (r === "path") renderPath(x, y, z === "v");
+    else if (r === "map") renderMap(x);
     else renderMissing();
     if (r !== "vetvi" && !(r === "all" && x) && key !== lastRoute) window.scrollTo(0, 0);
     lastRoute = key;
