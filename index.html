@@ -295,46 +295,30 @@ body.mapmode main.wrap { max-width: none; padding: 0; min-height: 0; }
   .maptools input { flex: 1 1 150px; width: auto; min-width: 0; }
 }
 
-/* ---------- Схема метро (эксперимент) ---------- */
-.metro { background: var(--paper); }
-.metrosvg { position: absolute; left: 0; top: 0; overflow: visible; }
-.metrosvg .ocean { fill: none; stroke: #7FB7D9; stroke-width: 90; opacity: .22; }
-.metrosvg .oceantext { font: italic 600 30px var(--f-text); fill: #3E7EA6; letter-spacing: .04em; cursor: pointer; }
-.metrosvg .ringline { fill: none; stroke: #8D5B2D; stroke-width: 9; }
-.metrosvg .mtransfer { fill: none; stroke: var(--muted); stroke-width: 3; stroke-dasharray: 1 7; stroke-linecap: round; }
-.metro.sel .mtransfer { opacity: .14; }
-.lb.tr { background: none; border: 3px dotted var(--muted); width: 22px; height: 22px; }
-.metrosvg .mline { fill: none; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; cursor: pointer; }
-.metrosvg .mst { fill: var(--paper); stroke-width: 3; cursor: pointer; }
-.metrosvg .mst.big { stroke: var(--ink); stroke-width: 2.6; }
-.metrosvg .mbadge { cursor: pointer; }
-.metrosvg .mbadge text { font: 700 14px var(--f-ui); fill: #FFF; text-anchor: middle; pointer-events: none; }
-.metrosvg .mlabel { font: 600 15px var(--f-ui); fill: var(--ink); paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round; cursor: pointer; }
-.metrosvg .mlabel.big { font-weight: 700; }
-.metrosvg .mlabel.hub { font: 700 24px var(--f-text); }
-.metro.sel .mline, .metro.sel .mbadge, .metro.sel .mst, .metro.sel .mlabel { opacity: .14; }
-.metro.sel .ringline { opacity: .25; }
-.metro.sel .on { opacity: 1; }
-.metro .mst.cur { stroke: var(--red); stroke-width: 4.5; }
-.metro .mlabel.cur { fill: var(--red); }
-.mlegend { position: absolute; top: 62px; right: 12px; z-index: 5; width: 340px; max-height: calc(100% - 80px); overflow: auto; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 12px 12px 8px; box-shadow: 0 8px 28px rgba(20, 22, 30, .14); font: 400 14.5px/1.35 var(--f-ui); cursor: auto; }
-.mlegend[hidden] { display: none; }
-.mltitle { font: 700 21px/1.2 var(--f-text); margin: 0 4px 4px; }
-.mltitle span { font: 600 12.5px/1 var(--f-ui); color: #FFF; background: var(--ochre); border-radius: 999px; padding: 3px 8px; vertical-align: 3px; margin-left: 6px; }
-.mlnote { color: var(--muted); margin: 0 4px 8px; font-size: 14px; }
-.mlegend ul { list-style: none; margin: 0; padding: 0; }
-.mlegend button { display: grid; grid-template-columns: 26px 1fr; column-gap: 9px; align-items: center; width: 100%; text-align: left; background: none; border: 0; border-radius: 6px; padding: 5px 4px; font: 600 14.5px/1.25 var(--f-ui); color: var(--ink); cursor: pointer; }
-.mlegend button:hover { background: var(--box); }
-.mlegend button small { grid-column: 2; font-weight: 400; color: var(--muted); font-size: 13px; }
-.lb { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #FFF; font: 700 13px/1 var(--f-ui); }
-.mlegend .lb { grid-row: span 2; }
-.lb.ring { background: #8D5B2D; }
-.mappanel .lb { width: 22px; height: 22px; font-size: 12px; margin-right: 3px; vertical-align: -6px; }
+/* ---------- Древо по кругу (эксперимент) ---------- */
+.radial { background: var(--paper); }
+.radsvg { position: absolute; left: 0; top: 0; overflow: visible; }
+.radsvg .rring { fill: none; stroke: var(--rule); stroke-width: 1.5; stroke-dasharray: 2 6; }
+.radsvg .rray { fill: none; stroke: var(--muted); stroke-width: 1.6; opacity: .75; }
+.radsvg .rchord { fill: none; stroke: var(--red); stroke-width: 1.4; opacity: .38; }
+.radsvg .rchord.l, .radsvg .rchord.c { stroke-dasharray: 4 4; }
+.radsvg .rchord.p2 { stroke: var(--muted); stroke-dasharray: 2 5; }
+.radsvg .rnode { fill: var(--kc); stroke: var(--paper); stroke-width: 2; cursor: pointer; }
+.radsvg .rlabel { font: 600 14px var(--f-ui); fill: var(--ink); paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round; cursor: pointer; }
+.radsvg .rlabel.hub { font: 700 22px var(--f-text); }
+.radial.far .rlabel { font-size: 20px; }
+.radial.far .rlabel.hub { font-size: 30px; }
+.radsvg .rlabel.long { font-size: 11.5px; }
+.radial.far .rlabel.long { font-size: 16px; }
+.radial.sel .rray, .radial.sel .rchord { opacity: .07; }
+.radial.sel .rnode, .radial.sel .rlabel { opacity: .22; }
+.radial.sel .on { opacity: 1; }
+.radial.sel .rray.on { stroke: var(--ink); stroke-width: 2.6; }
+.radial.sel .rchord.on { stroke-width: 2.6; }
+.radial .rlabel.cur { fill: var(--red); }
+.radial .rnode.cur { stroke: var(--red); stroke-width: 3; }
 .mplinks a + a { margin-left: 16px; }
 .exp { margin-top: 16px; font-size: 16px; }
-@media (max-width: 640px) {
-  .mlegend { left: 12px; right: 12px; width: auto; top: 108px; max-height: calc(100% - 124px); }
-}
 @media (max-width: 900px) {
   .hero, .god-grid { grid-template-columns: 1fr; gap: 36px; }
   .branches { grid-template-columns: 1fr; }
@@ -396,7 +380,7 @@ body.mapmode main.wrap { max-width: none; padding: 0; min-height: 0; }
       <p>Мифы часто противоречат друг другу. Где версии расходятся, в рассказе о персонаже приведены все, а на древе другая версия показана пунктиром.</p>
     </div>
     <div>
-      <p><a href="#/metro">Схема метро</a> — экспериментальный вид древа.</p>
+      <p><a href="#/radial">Древо по кругу</a> — экспериментальный вид.</p>
       <p>Другой проект автора: <a href="https://alex281172.github.io/drevo-faraonov/">«Древо фараонов»</a></p>
       <p id="upd"></p>
     </div>
@@ -742,7 +726,7 @@ body.mapmode main.wrap { max-width: none; padding: 0; min-height: 0; }
             <a class="btn" href="#/v/pervye">Начать с Хаоса</a>
             <a class="btn" href="#/path">Как связаны два персонажа</a>
           </div>
-          <p class="ui exp"><a href="#/metro">Эксперимент: родословная как схема метро</a></p>
+          <p class="ui exp"><a href="#/radial">Эксперимент: всё древо по кругу</a></p>
         </div>
         <div>
           <p class="rulers-title">Три поколения владык мира</p>
@@ -1390,313 +1374,273 @@ body.mapmode main.wrap { max-width: none; padding: 0; min-height: 0; }
     else center("zeus", 0.75);
   }
 
-  /* ---------- эксперимент: древо как схема метро ---------- */
-  const METRO_LINES = [
-    { n: "Эолийская", c: "#A1A2A3", d: "от Иапета через Прометея и Девкалиона к Ясону", s: ["gaia", "uranus", "iapetus", "prometheus", "deucalion", "hellen", "aeolus", "cretheus", "aeson", "jason"] },
-    { n: "Солнечная", c: "#E4A11B", d: "от Гипериона через Гелиоса к Медее", s: ["gaia", "uranus", "hyperion", "helios", "aeetes", "medea", "medus"] },
-    { n: "Афинская", c: "#9BC53D", d: "от Геры через Гефеста и афинских царей к Тесею", s: ["gaia", "uranus", "cronus", "hera", "hephaestus", "erichthonius-ath", "pandion1", "erechtheus", "cecrops2", "pandion2", "aegeus", "theseus", "hippolytus"] },
-    { n: "Фиванская", c: "#8E479C", d: "от Посейдона через Кадма и Семелу к Дионису и Лемносу", s: ["gaia", "uranus", "cronus", "poseidon", "agenor", "cadmus", "semele", "dionysus", "thoas", "hypsipyle"] },
-    { n: "Критская", c: "#FFC61A", d: "от Зевса через Миноса к Идоменею", s: ["gaia", "uranus", "cronus", "zeus", "minos", "deucalion2", "idomeneus"] },
-    { n: "Геракловская", c: "#0078BF", d: "от Зевса через Персея к Гераклу", s: ["gaia", "uranus", "cronus", "zeus", "perseus", "electryon", "alcmene", "heracles"] },
-    { n: "Троянская", c: "#DA2128", d: "от Зевса через Дардана и Приама к Гектору", s: ["gaia", "uranus", "cronus", "zeus", "dardanus", "erichthonius", "tros", "ilus", "laomedon", "priam", "hector", "astyanax"] },
-    { n: "Энеева", c: "#E66AC0", d: "от Троса через Анхиса к Энею и Асканию", s: ["gaia", "uranus", "cronus", "zeus", "dardanus", "erichthonius", "tros", "assaracus", "capys", "anchises", "aeneas", "ascanius"] },
-    { n: "Атридов", c: "#48B85E", d: "от Зевса через Тантала и Атрея к Оресту", s: ["gaia", "uranus", "cronus", "zeus", "tantalus", "pelops", "atreus", "agamemnon", "orestes"] },
-    { n: "Эакидов", c: "#19B7E8", d: "от Зевса через Эака и Пелея к Неоптолему", s: ["gaia", "uranus", "cronus", "zeus", "aeacus", "peleus", "achilles", "neoptolemus"] },
-    { n: "Одиссеева", c: "#F58631", d: "от Зевса через Гермеса и Автолика к Телемаху", s: ["gaia", "uranus", "cronus", "zeus", "hermes", "autolycus", "anticlea", "odysseus", "telemachus"] },
-    { n: "Морская", c: "#00938F", d: "от Понта через Нерея к Фетиде, матери Ахилла", s: ["gaia", "pontus", "nereus", "thetis"] },
-    { n: "Чудовищ", c: "#6E7B2B", d: "от Понта через Форкия и Ехидну к Сфинкс", s: ["gaia", "pontus", "phorcys", "echidna", "chimera", "sphinx"] },
-    { n: "Ночная", c: "#2E3192", d: "от Хаоса через Никту и Эриду к Лете", s: ["chaos", "nyx", "eris", "lethe"] },
-    { n: "Сонная", c: "#A58BD1", d: "от Хаоса через Никту и Гипноса к Морфею", s: ["chaos", "nyx", "hypnos", "morpheus"] }
-  ];
-  const METRO_TRANSFERS = [["thetis", "peleus"], ["jason", "medea"], ["medea", "aegeus"]];
-  const METRO_RING = ["zeus", "hera", "poseidon", "demeter", "hestia", "athena", "apollo", "artemis", "ares", "aphrodite", "hephaestus", "hermes"];
-  let METROL = null;
-  function metroLayout() {
-    if (METROL) return METROL;
-    const Rr = 560, STEP = 150, GAP = 6.5;
-    const ringSet = new Set(METRO_RING);
-    const parent = {}, kids = {}, depth = {};
-    METRO_LINES.forEach(L => L.s.forEach((id, i) => {
-      if (i === 0 || parent[id] !== undefined) return;
-      parent[id] = L.s[i - 1];
-      (kids[L.s[i - 1]] = kids[L.s[i - 1]] || []).push(id);
-    }));
-    const roots = ["gaia", "chaos"];
+  /* ---------- эксперимент: древо по кругу (лучи и хорды) ---------- */
+  let RADL = null;
+  function radialLayout() {
+    if (RADL) return RADL;
+    const t0 = performance.now();
+    const ids = D.G.map(g => g.id);
+    const P = id => by[id].p || [];
+    const kids = id => kidsOf[id] || [];
+    const isPrim = id => by[id].k === "prim";
+    const fk = (a, b) => [a, b].sort().join("+");
+    // пары: союзы и пары родителей
+    const pairs = new Map();
+    D.G.forEach(g => { const p = P(g.id); if (p.length >= 2) { const k = fk(p[0], p[1]); const f = pairs.get(k) || { a: p[0], b: p[1], kids: 0, t: null }; f.kids++; pairs.set(k, f); } });
+    D.U.forEach(([a, b, t]) => { const k = fk(a, b); const f = pairs.get(k) || { a, b, kids: 0, t: null }; f.t = t; pairs.set(k, f); });
+    const partners = {}, pw = {};
+    pairs.forEach((f, k) => {
+      (partners[f.a] = partners[f.a] || []).push(f.b);
+      (partners[f.b] = partners[f.b] || []).push(f.a);
+      pw[k] = f.kids ? 1.5 : f.t === "c" ? 0.1 : 0.4;
+    });
+    // поколения: ребёнок — на круг дальше самого «позднего» из родителей;
+    // у кого родителей нет — в круге супруга (не своего потомка), а у одиночек — рядом с ровесником
+    const HINT = { patroclus: "achilles", ajax2: "ajax", philoctetes: "ajax", calchas: "agamemnon", scylla: "charybdis", tiresias: "cadmus",
+      argonauts: "jason", atalanta: "meleager", talos: "medea", cecrops: "erichthonius-ath", robbers: "theseus", daedalus: "minos",
+      icarius: "tyndareus", oeneus: "alcmene" };
+    const desc = {};
+    const descOf = x => {
+      if (desc[x]) return desc[x];
+      const set = new Set();
+      desc[x] = set;
+      kids(x).forEach(c => { set.add(c); descOf(c).forEach(y => set.add(y)); });
+      return set;
+    };
+    const rank = {};
+    ids.forEach(x => { rank[x] = 0; });
+    for (let it = 0; it < 60; it++) {
+      let changed = false;
+      ids.forEach(x => {
+        let v;
+        const ps = P(x);
+        if (ps.length) v = 1 + Math.max(...ps.map(p => rank[p]));
+        else if (isPrim(x)) v = 0;
+        else {
+          const sp = (partners[x] || []).filter(q => !descOf(x).has(q));
+          if (sp.length) v = Math.max(...sp.map(q => rank[q]));
+          else if (HINT[x] && by[HINT[x]]) v = rank[HINT[x]];
+          else v = kids(x).length ? Math.max(0, Math.min(...kids(x).map(c => rank[c])) - 1) : 0;
+        }
+        if (v !== rank[x]) { rank[x] = v; changed = true; }
+      });
+      if (!changed) break;
+    }
+    // скелет для расстановки по углу: каждый висит на «ближайшем» родителе, у кого родителей нет — рядом с супругом
+    const tp = {}, attached = {};
+    ids.forEach(x => {
+      const p = P(x);
+      if (p.length) tp[x] = p.slice().sort((a, b) => rank[b] - rank[a] || (P(b).length > 0) - (P(a).length > 0) || kids(a).length - kids(b).length)[0];
+    });
+    const rootOf = x => { const s2 = new Set(); while (tp[x] && !s2.has(x)) { s2.add(x); x = tp[x]; } return x; };
+    ids.filter(x => !P(x).length).sort((a, b) => kids(a).length - kids(b).length).forEach(x => {
+      if (isPrim(x)) {
+        const big = (partners[x] || []).filter(y => isPrim(y) && !P(y).length && kids(y).length > kids(x).length);
+        if (big.length) { tp[x] = big[0]; attached[x] = true; }
+        return;
+      }
+      const cand = (partners[x] || []).slice().sort((a, b) => (P(b).length > 0) - (P(a).length > 0) || Math.abs(rank[a] - rank[x]) - Math.abs(rank[b] - rank[x]) || kids(b).length - kids(a).length);
+      for (const y of cand) if (rootOf(y) !== x) { tp[x] = y; attached[x] = true; return; }
+      const h = HINT[x] && by[HINT[x]] ? HINT[x] : null;
+      if (h && rootOf(h) !== x) { tp[x] = h; attached[x] = true; }
+    });
+    const ch = {}, sp = {};
+    ids.forEach(x => { if (tp[x] && !attached[x]) { (ch[tp[x]] = ch[tp[x]] || []).push(x); sp[x] = tp[x]; } });
+    const roots = ["gaia", "chaos", "eros"].filter(x => by[x] && !tp[x]).concat(ids.filter(x => !tp[x] && !["gaia", "chaos", "eros"].includes(x)));
+    // прицепленные (супруги без родителей, одиночки) встают соседями сразу за тем, к кому прицеплены
+    let pend = ids.filter(x => attached[x]);
+    for (let guard = 0; pend.length && guard < 30; guard++) {
+      pend = pend.filter(x => {
+        const y = tp[x];
+        if (attached[y] && !sp[y] && !roots.includes(y)) return true;
+        const list = sp[y] ? ch[sp[y]] : roots;
+        list.splice(list.indexOf(y) + 1, 0, x);
+        if (sp[y]) sp[x] = sp[y];
+        return false;
+      });
+    }
+    pend.forEach(x => roots.push(x));
+
+    // углы: каждому листу — дуга одной длины на его круге
+    // первые два поколения — у самого центра, дальше круги через равный шаг
+    const STEP = 135, ARC = 23;
+    const rAt = k => k === 0 ? 60 : k === 1 ? 160 : 350 + (k - 2) * STEP;
+    const rOf = x => rAt(rank[x]);
     const leaves = [];
-    const walk = (x, d) => { depth[x] = d; const ks = kids[x] || []; if (!ks.length) leaves.push(x); ks.forEach(k => walk(k, d + 1)); };
-    roots.forEach(r => walk(r, 0));
-    const per = 2 * Math.PI / leaves.length;
-    const zeusLeaves = [];
-    const collect = x => { const ks = kids[x] || []; if (!ks.length) zeusLeaves.push(x); ks.forEach(collect); };
-    collect("zeus");
-    const mid = (leaves.indexOf(zeusLeaves[0]) + leaves.indexOf(zeusLeaves[zeusLeaves.length - 1])) / 2;
-    const start = -Math.PI / 2 - mid * per;
+    const walk = x => { const l = ch[x] || []; if (!l.length) leaves.push(x); l.forEach(walk); };
+    roots.forEach(walk);
+    // доля круга для листа: у центра не больше, чем на третьем круге; дальние листья получают чуть больше места
+    const need = leaves.map(l => ARC / Math.pow(Math.max(rOf(l), rAt(2)), 0.85));
+    const total = need.reduce((t, v) => t + v, 0);
+    const scale = 2 * Math.PI / total;
     const ang = {};
-    leaves.forEach((x, i) => { ang[x] = start + i * per; });
+    let a0 = -Math.PI / 2 - need[0] * scale / 2, acc = a0;
+    leaves.forEach((l, i) => { ang[l] = acc + need[i] * scale / 2; acc += need[i] * scale; });
     const angleOf = x => {
       if (ang[x] != null) return ang[x];
-      const ks = kids[x] || [];
-      ang[x] = ks.reduce((t, k) => t + angleOf(k), 0) / ks.length;
+      const l = ch[x];
+      ang[x] = (angleOf(l[0]) + angleOf(l[l.length - 1])) / 2;
+      l.forEach(angleOf);
       return ang[x];
     };
     roots.forEach(angleOf);
-    const lastRing = x => { for (let y = x; y; y = parent[y]) if (ringSet.has(y)) return y; return null; };
-    const rad = {};
-    Object.keys(depth).forEach(x => {
-      if (x === "gaia") rad[x] = 0;
-      else if (x === "chaos") rad[x] = Rr * 0.2;
-      else if (ringSet.has(x)) rad[x] = Rr;
-      else {
-        const lr = lastRing(x);
-        rad[x] = lr ? Rr + (depth[x] - depth[lr]) * STEP : depth[x] <= 2 ? depth[x] * Rr / 3 : Rr + (depth[x] - 2.6) * STEP;
-      }
-    });
-    if (depth.nyx != null) rad.nyx = Rr * 0.4;
-    // за кольцом линии расходятся постепенно, как настоящие линии метро
-    const target = Object.assign({}, ang);
-    const setDisp = (x, pd) => {
-      ang[x] = pd == null || rad[x] <= Rr + 1 ? target[x] : pd + (target[x] - pd) * 0.45;
-      (kids[x] || []).forEach(k => setDisp(k, ang[x]));
-    };
-    roots.forEach(r => setDisp(r, null));
-    // соседние станции кольца на одной линии разводим по кругу
-    Object.keys(parent).forEach(x => {
-      const p = parent[x];
-      if (ringSet.has(x) && ringSet.has(p) && Math.abs(ang[x] - ang[p]) < 0.1) {
-        const sg = parent[p] && ang[parent[p]] > ang[p] ? 1 : -1;
-        ang[p] += sg * 0.12; ang[x] -= sg * 0.12;
-      }
-    });
+    // повернуть так, чтобы Зевс смотрел вверх
+    const rot = ang.zeus != null ? -Math.PI / 2 - ang.zeus : 0;
+    ids.forEach(x => { ang[x] += rot; });
     const pos = {};
-    Object.keys(depth).forEach(x => { pos[x] = [rad[x] * Math.cos(ang[x]), rad[x] * Math.sin(ang[x])]; });
-    // кольцевые станции без своей линии — в самые широкие промежутки кольца
-    const norm2 = a => ((a % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-    const onRing = METRO_RING.filter(x => pos[x]).map(x => ({ x, a: norm2(ang[x]) }));
-    METRO_LINES.forEach(L => {
-      if (L.s.some(id => ringSet.has(id))) return;
-      const out = L.s.find(id => rad[id] > Rr);
-      if (out) onRing.push({ x: null, a: norm2(ang[out]) });
-    });
-    METRO_RING.filter(x => !pos[x]).forEach(x => {
-      onRing.sort((p, q) => p.a - q.a);
-      let best = 0, gapMax = -1;
-      onRing.forEach((p, i) => {
-        const q = onRing[(i + 1) % onRing.length];
-        const g = ((q.a - p.a) + 2 * Math.PI) % (2 * Math.PI) || 2 * Math.PI;
-        if (g > gapMax) { gapMax = g; best = i; }
-      });
-      const a = onRing[best].a + gapMax / 2;
-      onRing.push({ x, a });
-      ang[x] = a; rad[x] = Rr;
-      pos[x] = [Rr * Math.cos(a), Rr * Math.sin(a)];
-    });
+    ids.forEach(x => { const r = rOf(x); pos[x] = [r * Math.cos(ang[x]), r * Math.sin(ang[x])]; });
 
-    // перегоны и параллельные линии на общих участках
-    const segLines = {};
-    const skey = (a, b) => a + ">" + b;
-    METRO_LINES.forEach((L, li) => L.s.forEach((id, i) => { if (i) (segLines[skey(L.s[i - 1], id)] = segLines[skey(L.s[i - 1], id)] || []).push(li); }));
-    const width = {};
-    Object.entries(segLines).forEach(([k, ls]) => {
-      const [a, b] = k.split(">");
-      [a, b].forEach(x => { width[x] = Math.max(width[x] || 0, ls.length * GAP); });
+    // лучи: от родителя наружу; путь плавно поворачивает и подходит к ребёнку тоже по лучу
+    const f1 = v => v.toFixed(1);
+    const rays = [];
+    ids.forEach(x => {
+      const p = tp[x];
+      if (!p || attached[x]) return;
+      const rp = rOf(p), rc = rOf(x), ap = ang[p], ac = ang[x];
+      if (rank[p] <= 1) {
+        // от центральных богов — прямой луч, который у ребёнка становится радиальным
+        const C = pos[x], Pp = pos[p], u = [Math.cos(ac), Math.sin(ac)], L = (rc - rp) * 0.4;
+        const c1 = [Pp[0] + (C[0] - Pp[0]) * 0.35, Pp[1] + (C[1] - Pp[1]) * 0.35], c2 = [C[0] - u[0] * L, C[1] - u[1] * L];
+        rays.push({ d: `M${f1(Pp[0])} ${f1(Pp[1])}C${f1(c1[0])} ${f1(c1[1])} ${f1(c2[0])} ${f1(c2[1])} ${f1(C[0])} ${f1(C[1])}`, o: [p, x] });
+        return;
+      }
+      const n = Math.max(4, Math.min(28, Math.round(Math.abs(ac - ap) * (rp + rc) / 2 / 14) + 4));
+      let d = "";
+      for (let i = 0; i <= n; i++) {
+        const t = i / n, e = t * t * (3 - 2 * t), r = rp + (rc - rp) * t, a = ap + (ac - ap) * e;
+        d += (i ? "L" : "M") + f1(r * Math.cos(a)) + " " + f1(r * Math.sin(a));
+      }
+      rays.push({ d, o: [p, x] });
     });
-    const linesAt = {};
-    METRO_LINES.forEach((L, li) => L.s.forEach(id => { (linesAt[id] = linesAt[id] || []).push(li); }));
-    const add = (p, q, k) => [p[0] + q[0] * k, p[1] + q[1] * k];
-    const lineD = METRO_LINES.map((L, li) => {
-      const segs = [];
-      for (let i = 1; i < L.s.length; i++) {
-        const a = pos[L.s[i - 1]], b = pos[L.s[i]], ls = segLines[skey(L.s[i - 1], L.s[i])];
-        const len = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, t = [(b[0] - a[0]) / len, (b[1] - a[1]) / len], n = [-t[1], t[0]];
-        const off = (ls.indexOf(li) - (ls.length - 1) / 2) * GAP;
-        segs.push([add(a, n, off), add(b, n, off)]);
-      }
-      const pts = [segs[0][0]];
-      for (let i = 0; i < segs.length; i++) {
-        if (i < segs.length - 1) pts.push([(segs[i][1][0] + segs[i + 1][0][0]) / 2, (segs[i][1][1] + segs[i + 1][0][1]) / 2]);
-        else pts.push(segs[i][1]);
-      }
-      // скруглённые повороты
-      let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
-      for (let i = 1; i < pts.length - 1; i++) {
-        const P = pts[i], A = pts[i - 1], B = pts[i + 1];
-        const la = Math.hypot(P[0] - A[0], P[1] - A[1]), lb = Math.hypot(B[0] - P[0], B[1] - P[1]);
-        const ra = Math.min(36, la * 0.45) / (la || 1), rb = Math.min(36, lb * 0.45) / (lb || 1);
-        const p1 = [P[0] - (P[0] - A[0]) * ra, P[1] - (P[1] - A[1]) * ra], p2 = [P[0] + (B[0] - P[0]) * rb, P[1] + (B[1] - P[1]) * rb];
-        d += `L${p1[0].toFixed(1)} ${p1[1].toFixed(1)}Q${P[0].toFixed(1)} ${P[1].toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
-      }
-      const z = pts[pts.length - 1];
-      d += `L${z[0].toFixed(1)} ${z[1].toFixed(1)}`;
-      const last = pos[L.s[L.s.length - 1]], prev = pos[L.s[L.s.length - 2]];
-      const ll = Math.hypot(last[0] - prev[0], last[1] - prev[1]) || 1;
-      const badge = [last[0] + (last[0] - prev[0]) / ll * 36, last[1] + (last[1] - prev[1]) / ll * 36];
-      return { d, c: L.c, n: L.n, i: li, badge };
+    // хорды: браки и союзы, а также второй родитель, если с первым у него нет союза
+    const chord = (a, b) => {
+      // чем дальше друг от друга концы, тем сильнее хорда прогибается к центру; соседей соединяет почти прямая
+      const A = pos[a], B = pos[b], dist = Math.hypot(A[0] - B[0], A[1] - B[1]);
+      const f = 1 - 0.45 * Math.min(1, dist / (Math.hypot(...A) + Math.hypot(...B) || 1)), c = [(A[0] + B[0]) / 2 * f, (A[1] + B[1]) / 2 * f];
+      return `M${f1(A[0])} ${f1(A[1])}Q${f1(c[0])} ${f1(c[1])} ${f1(B[0])} ${f1(B[1])}`;
+    };
+    const chords = [];
+    D.U.forEach(([a, b, t]) => chords.push({ d: chord(a, b), cls: "u " + t, o: [a, b] }));
+    const unionSet = new Set(D.U.map(([a, b]) => fk(a, b)));
+    ids.forEach(x => {
+      const p = P(x);
+      if (p.length < 2) return;
+      const other = p.find(y => y !== tp[x]);
+      if (other && !unionSet.has(fk(p[0], p[1]))) chords.push({ d: chord(other, x), cls: "p2", o: [other, x] });
     });
-
-    const transfers = METRO_TRANSFERS.filter(([a, b]) => pos[a] && pos[b]).map(([a, b]) => ({ a, b, d: `M${pos[a][0].toFixed(1)} ${pos[a][1].toFixed(1)}L${pos[b][0].toFixed(1)} ${pos[b][1].toFixed(1)}` }));
-    // станции и подписи
-    const stations = Object.keys(pos).map(id => {
-      const p = pos[id], ls = linesAt[id] || [], ring = ringSet.has(id);
-      const big = ls.length > 1 || ring || id === "gaia" || id === "chaos";
-      const r = big ? Math.max(8, (width[id] || 0) / 2 + 5) : 5.5;
-      let t = [0, 1];
-      const L0 = ls.length ? METRO_LINES[ls[0]].s : null;
-      if (L0) {
-        const i = L0.indexOf(id), a = pos[L0[Math.max(0, i - 1)]], b = pos[L0[Math.min(L0.length - 1, i + 1)]];
-        const len = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
-        t = [(b[0] - a[0]) / len, (b[1] - a[1]) / len];
-      }
-      const u = Math.hypot(p[0], p[1]) > 1 ? [p[0] / Math.hypot(p[0], p[1]), p[1] / Math.hypot(p[0], p[1])] : [0, -1];
-      let lx, ly, anchor;
-      if (id === "zeus") {
-        lx = p[0] + 10; ly = p[1] + r + 26; anchor = "start";
-      } else if (ring) {
-        const sgn = ls.length ? -1 : 1;
-        lx = p[0] + sgn * u[0] * (r + 14); ly = p[1] + sgn * u[1] * (r + 14) + 5;
-        const ux = sgn * u[0], uy = sgn * u[1];
-        anchor = ux > 0.3 ? "start" : ux < -0.3 ? "end" : "middle";
-        if (anchor === "middle") ly += uy > 0 ? 10 : -4;
-      } else if (Math.abs(t[1]) < 0.42) {
-        const terminal = ls.length === 1 && L0[L0.length - 1] === id;
-        lx = p[0]; ly = p[1] - r - 9; anchor = "middle";
-        if (terminal) { lx = p[0] + (t[0] > 0 ? 6 : -6); anchor = t[0] > 0 ? "end" : "start"; }
-      } else {
-        const side = u[0] < -0.05 ? -1 : 1;
-        lx = p[0] + side * (r + 9); ly = p[1] + 5; anchor = side < 0 ? "end" : "start";
-      }
-      return { id, x: p[0], y: p[1], r, big, ring, lines: ls, lx, ly, anchor, c: ls.length === 1 ? METRO_LINES[ls[0]].c : null };
+    const maxR = Math.max(...ids.map(rOf));
+    const rings = [];
+    for (let k = 0; k <= Math.max(...ids.map(x => rank[x])); k++) rings.push(rAt(k));
+    const half = maxR + 260;
+    const nodes = ids.map(x => {
+      let deg = ang[x] * 180 / Math.PI;
+      deg = ((deg % 360) + 360) % 360;
+      const left = deg > 90 && deg < 270;
+      // подпись листа — наружу, у кого есть потомки на древе — внутрь, чтобы не лечь на лучи к детям
+      const inward = (ch[x] || []).length > 0;
+      // длинное имя, которое смотрит внутрь, не должно упираться в родителя
+      const long = inward && rank[x] > 1 && by[x].n.length * 7.4 > STEP - 30;
+      return { id: x, x: pos[x][0], y: pos[x][1], deg, left, inward, long, core: rank[x] <= 1, r: rOf(x) };
     });
-    let maxR = 0;
-    Object.values(pos).forEach(p => { maxR = Math.max(maxR, Math.hypot(p[0], p[1])); });
-    const ocean = maxR + 190, half = ocean + 140;
-    METROL = { Rr, ocean, half, size: half * 2, lines: lineD, stations, transfers };
-    return METROL;
+    // подписи у центра — горизонтально, в первом свободном месте вокруг точки
+    const hubs = new Set(["gaia", "chaos", "zeus"]);
+    const boxes = nodes.filter(n => n.core).map(n => ({ x0: n.x - 8, x1: n.x + 8, y0: n.y - 8, y1: n.y + 8 }));
+    nodes.filter(n => n.core).sort((a, b) => (hubs.has(b.id) - hubs.has(a.id)) || kids(b.id).length - kids(a.id).length).forEach(n => {
+      const big = hubs.has(n.id), w = by[n.id].n.length * (big ? 12.5 : 8) + 6, h = big ? 24 : 17;
+      const cands = [
+        { x: n.x, y: n.y + (big ? 30 : 22), a: "middle" }, { x: n.x, y: n.y - (big ? 16 : 12), a: "middle" },
+        { x: n.x + (big ? 14 : 10), y: n.y + 5, a: "start" }, { x: n.x - (big ? 14 : 10), y: n.y + 5, a: "end" },
+        { x: n.x, y: n.y + (big ? 52 : 40), a: "middle" }, { x: n.x, y: n.y - (big ? 38 : 30), a: "middle" }
+      ];
+      const boxOf = c => { const x0 = c.a === "middle" ? c.x - w / 2 : c.a === "start" ? c.x : c.x - w; return { x0, x1: x0 + w, y0: c.y - h + 4, y1: c.y + 4 }; };
+      const ov = b => boxes.reduce((t, q) => t + Math.max(0, Math.min(b.x1, q.x1) - Math.max(b.x0, q.x0)) * Math.max(0, Math.min(b.y1, q.y1) - Math.max(b.y0, q.y0)), 0);
+      let best = cands[0], bo = Infinity;
+      cands.forEach(c => { const o = ov(boxOf(c)); if (o < bo - 0.5) { bo = o; best = c; } });
+      n.lab = best;
+      boxes.push(boxOf(best));
+    });
+    const M = 120, box = [Math.min(...nodes.map(n => n.x)) - M, Math.min(...nodes.map(n => n.y)) - M, Math.max(...nodes.map(n => n.x)) + M, Math.max(...nodes.map(n => n.y)) + M];
+    RADL = { half, size: half * 2, nodes, rays, chords, rings, box, ms: Math.round(performance.now() - t0) };
+    return RADL;
   }
 
-  let metroCleanup = null;
-  function renderMetro(focusId) {
-    document.title = "Схема метро — Родословная греческих богов";
+  let radialCleanup = null;
+  function renderRadial(focusId) {
+    document.title = "Древо по кругу — Родословная греческих богов";
     document.body.classList.add("mapmode");
-    const M = metroLayout(), H = M.half;
-    const st = {};
-    M.stations.forEach(s => { st[s.id] = s; });
-    const tx0 = v => (v + H).toFixed(1);
-    const oceanPath = `M${tx0(-M.ocean)} ${tx0(0)}a${M.ocean} ${M.ocean} 0 1 1 ${2 * M.ocean} 0a${M.ocean} ${M.ocean} 0 1 1 ${-2 * M.ocean} 0`;
-    const circ = 2 * Math.PI * M.ocean;
+    const R = radialLayout(), H = R.half;
+    const nd = {};
+    R.nodes.forEach(n => { nd[n.id] = n; });
     app.innerHTML = `
-      <div class="mapview metro" id="mview" tabindex="0" aria-label="Схема метро. Перетаскивайте, чтобы двигаться; плюс и минус меняют масштаб.">
-        <div class="mapinner" id="minner" style="width:${M.size}px;height:${M.size}px">
-          <svg class="metrosvg" width="${M.size}" height="${M.size}" viewBox="0 0 ${M.size} ${M.size}">
-            <defs><path id="oceanpath" d="${oceanPath}"/></defs>
-            <circle class="ocean" cx="${H}" cy="${H}" r="${M.ocean}"/>
-            ${[0, 0.25, 0.5, 0.75].map(k => `<text class="oceantext" data-st="oceanus"><textPath href="#oceanpath" startOffset="${(k * circ).toFixed(0)}">Океан — река, омывающая землю</textPath></text>`).join("")}
-            <circle class="ringline" cx="${H}" cy="${H}" r="${M.Rr}"/>
+      <div class="mapview radial" id="rview" data-ms="${R.ms}" tabindex="0" aria-label="Древо по кругу. Перетаскивайте, чтобы двигаться; плюс и минус меняют масштаб.">
+        <div class="mapinner" id="rinner" style="width:${R.size}px;height:${R.size}px">
+          <svg class="radsvg" width="${R.size}" height="${R.size}" viewBox="0 0 ${R.size} ${R.size}">
             <g transform="translate(${H} ${H})">
-              ${M.transfers.map(t => `<path class="mtransfer" data-st="${t.a}" data-t="${t.a} ${t.b}" d="${t.d}"/>`).join("")}
-              ${M.lines.map(l => `<path class="mline" data-line="${l.i}" d="${l.d}" stroke="${l.c}"/>`).join("")}
-              ${M.stations.map(s => s.big
-                ? `<circle class="mst big" data-st="${s.id}" data-lines="${s.lines.join(" ")}" cx="${s.x.toFixed(1)}" cy="${s.y.toFixed(1)}" r="${s.r.toFixed(1)}"/>`
-                : `<circle class="mst" data-st="${s.id}" data-lines="${s.lines.join(" ")}" cx="${s.x.toFixed(1)}" cy="${s.y.toFixed(1)}" r="${s.r}" stroke="${s.c}"/>`).join("")}
-              ${M.lines.map(l => `<g class="mbadge" data-line="${l.i}"><circle cx="${l.badge[0].toFixed(1)}" cy="${l.badge[1].toFixed(1)}" r="14" fill="${l.c}"/><text x="${l.badge[0].toFixed(1)}" y="${(l.badge[1] + 4.5).toFixed(1)}">${l.i + 1}</text></g>`).join("")}
-              ${M.stations.map(s => `<text class="mlabel${s.big ? " big" : ""}${s.id === "gaia" || s.id === "chaos" ? " hub" : ""}" data-st="${s.id}" data-lines="${s.lines.join(" ")}" x="${s.lx.toFixed(1)}" y="${s.ly.toFixed(1)}" text-anchor="${s.anchor}">${esc(by[s.id].n)}</text>`).join("")}
+              ${R.rings.map(r => `<circle class="rring" r="${r}"/>`).join("")}
+              ${R.chords.map(c => `<path class="rchord ${c.cls}" data-o="${c.o.join(" ")}" d="${c.d}"/>`).join("")}
+              ${R.rays.map(l => `<path class="rray" data-o="${l.o.join(" ")}" d="${l.d}"/>`).join("")}
+              ${R.nodes.map(n => `<circle class="rnode k-${by[n.id].k}" data-id="${n.id}" cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${n.id === "gaia" || n.id === "chaos" || n.id === "zeus" ? 9 : 5.5}"/>`).join("")}
+              ${R.nodes.map(n => {
+                const g = by[n.id];
+                const hub = n.id === "gaia" || n.id === "chaos" || n.id === "zeus";
+                if (n.core) return `<text class="rlabel${hub ? " hub" : ""}" data-id="${n.id}" x="${n.lab.x.toFixed(1)}" y="${n.lab.y.toFixed(1)}" text-anchor="${n.lab.a}">${esc(g.n)}</text>`;
+                const off = hub ? 15 : 11, out = !n.inward;
+                const anchor = out !== n.left ? "start" : "end";
+                return `<text class="rlabel${hub ? " hub" : ""}${out ? "" : " in"}${n.long ? " long" : ""}" data-id="${n.id}" transform="rotate(${n.deg.toFixed(2)}) translate(${(n.r + (out ? off : -off)).toFixed(1)} 0)${n.left ? " rotate(180)" : ""}" text-anchor="${anchor}" dy="${hub ? 7 : 4.5}">${esc(g.n)}</text>`;
+              }).join("")}
             </g>
           </svg>
         </div>
         <div class="maptools">
-          <input id="mq" type="search" list="mnames" placeholder="Найти станцию" aria-label="Найти станцию на схеме" autocomplete="off">
-          <datalist id="mnames">${M.stations.map(s => by[s.id].n).sort(ru).map(n => `<option value="${esc(n)}">`).join("")}</datalist>
-          <button type="button" id="mzin" aria-label="Приблизить">+</button>
-          <button type="button" id="mzout" aria-label="Отдалить">−</button>
-          <button type="button" id="mzfit">Вся схема</button>
-          <button type="button" id="mleg" aria-expanded="true">Линии</button>
+          <input id="rq" type="search" list="rnames" placeholder="Найти на древе" aria-label="Найти персонажа на древе" autocomplete="off">
+          <datalist id="rnames">${D.G.slice().sort((x, y) => ru(x.n, y.n)).map(g => `<option value="${esc(g.n)}">`).join("")}</datalist>
+          <button type="button" id="rzin" aria-label="Приблизить">+</button>
+          <button type="button" id="rzout" aria-label="Отдалить">−</button>
+          <button type="button" id="rzfit">Показать всё</button>
         </div>
-        <div class="mlegend" id="mlegend">
-          <p class="mltitle">Схема метро <span>эксперимент</span></p>
-          <p class="mlnote">Линии — родословные от центра к героям: чем дальше от центра, тем позже поколение. Кольцевая соединяет олимпийцев.</p>
-          <ul>
-            <li><button type="button" data-ring="1"><span class="lb ring">О</span>Кольцевая олимпийская<small>двенадцать олимпийцев</small></button></li>
-            <li><button type="button" data-transfers="1"><span class="lb tr"></span>Переходы<small>браки между родами: Фетида и Пелей, Медея с Ясоном и Эгеем</small></button></li>
-            ${M.lines.map(l => `<li><button type="button" data-line="${l.i}"><span class="lb" style="background:${l.c}">${l.i + 1}</span>${esc(l.n)}<small>${esc(METRO_LINES[l.i].d)}</small></button></li>`).join("")}
-          </ul>
-        </div>
-        <div class="mappanel" id="mpanel" hidden></div>
+        <p class="maphint">Круги — поколения, от первых богов в центре наружу. Серые лучи ведут от родителя к детям, красные хорды — браки и союзы, серый пунктир — второй родитель.</p>
+        <div class="mappanel" id="rpanel" hidden></div>
       </div>`;
-    const view = document.getElementById("mview"), inner = document.getElementById("minner"), panel = document.getElementById("mpanel"), legend = document.getElementById("mlegend");
+    const view = document.getElementById("rview"), inner = document.getElementById("rinner"), panel = document.getElementById("rpanel");
     const fitHeight = () => { view.style.height = Math.max(320, window.innerHeight - view.getBoundingClientRect().top) + "px"; };
     fitHeight();
-    if (window.innerWidth < 900) { legend.hidden = true; document.getElementById("mleg").setAttribute("aria-expanded", "false"); }
     let k = 0.3, tx = 0, ty = 0;
-    const apply = () => { inner.style.transform = `translate(${tx}px,${ty}px) scale(${k})`; };
-    const clampK = v => Math.max(0.1, Math.min(2.2, v));
+    const apply = () => { inner.style.transform = `translate(${tx}px,${ty}px) scale(${k})`; view.classList.toggle("far", k < 0.32); };
+    const clampK = v => Math.max(0.08, Math.min(2.2, v));
     const zoomAt = (cx, cy, f) => { const nk = clampK(k * f); tx = cx - (cx - tx) * (nk / k); ty = cy - (cy - ty) * (nk / k); k = nk; apply(); };
     const fit = () => {
-      const side = legend.hidden ? 0 : legend.offsetWidth + 24, w = view.clientWidth - side;
-      k = clampK(Math.min(w / M.size, view.clientHeight / M.size) * 1.02);
-      tx = (w - M.size * k) / 2; ty = (view.clientHeight - M.size * k) / 2; apply();
+      const [x0, y0, x1, y1] = R.box;
+      k = clampK(Math.min(view.clientWidth / (x1 - x0), view.clientHeight / (y1 - y0)));
+      tx = view.clientWidth / 2 - ((x0 + x1) / 2 + H) * k; ty = view.clientHeight / 2 - ((y0 + y1) / 2 + H) * k; apply();
     };
-    const center = (id, nk) => {
-      const s = st[id];
-      if (!s) return;
-      if (nk) k = clampK(nk);
-      tx = view.clientWidth / 2 - (s.x + H) * k; ty = view.clientHeight / 2 - (s.y + H) * k; apply();
-    };
-    const clearSel = () => { view.classList.remove("sel"); view.querySelectorAll(".on, .cur").forEach(el => el.classList.remove("on", "cur")); };
-    function selectLine(li, ring) {
-      clearSel();
+    const center = (id, nk) => { const n = nd[id]; if (!n) return; if (nk) k = clampK(nk); tx = view.clientWidth / 2 - (n.x + H) * k; ty = view.clientHeight / 2 - (n.y + H) * k; apply(); };
+    function select(id, move) {
+      view.querySelectorAll(".on, .cur").forEach(el => el.classList.remove("on", "cur"));
+      if (!id) { view.classList.remove("sel"); panel.hidden = true; return; }
+      const g = by[id];
+      const rel = new Set([id].concat(g.p || [], kidsOf[id] || [], (unionsOf[id] || []).map(u => u.id)));
       view.classList.add("sel");
-      if (ring) {
-        view.querySelector(".ringline").classList.add("on");
-        METRO_RING.forEach(id => view.querySelectorAll(`[data-st="${id}"]`).forEach(el => el.classList.add("on")));
-      } else {
-        view.querySelectorAll(`[data-line="${li}"]`).forEach(el => el.classList.add("on"));
-        METRO_LINES[li].s.forEach(id => view.querySelectorAll(`[data-st="${id}"]`).forEach(el => el.classList.add("on")));
-      }
-      panel.hidden = true;
-    }
-    function selectTransfers() {
-      clearSel();
-      view.classList.add("sel");
-      view.querySelectorAll(".mtransfer").forEach(el => {
-        el.classList.add("on");
-        el.dataset.t.split(" ").forEach(x => view.querySelectorAll(`[data-st="${x}"]`).forEach(q => q.classList.add("on")));
-      });
-      panel.hidden = true;
-    }
-    function selectStation(id, move) {
-      clearSel();
-      if (!id) { panel.hidden = true; return; }
-      const g = by[id], s = st[id];
-      view.classList.add("sel");
-      const ls = s ? s.lines : [];
-      ls.forEach(li => {
-        view.querySelectorAll(`.mline[data-line="${li}"], .mbadge[data-line="${li}"]`).forEach(el => el.classList.add("on"));
-        METRO_LINES[li].s.forEach(x => view.querySelectorAll(`[data-st="${x}"]`).forEach(el => el.classList.add("on")));
-      });
-      if (s && s.ring) { view.querySelector(".ringline").classList.add("on"); METRO_RING.forEach(x => view.querySelectorAll(`[data-st="${x}"]`).forEach(el => el.classList.add("on"))); }
-      view.querySelectorAll(".mtransfer").forEach(el => {
-        const pair = el.dataset.t.split(" ");
-        if (pair.includes(id)) { el.classList.add("on"); pair.forEach(x => view.querySelectorAll(`[data-st="${x}"]`).forEach(q => q.classList.add("on"))); }
-      });
-      view.querySelectorAll(`[data-st="${id}"]`).forEach(el => el.classList.add("on", "cur"));
-      const badges = ls.map(li => `<span class="lb" style="background:${METRO_LINES[li].c}" title="${esc(METRO_LINES[li].n)}">${li + 1}</span>`).join("") + (s && s.ring ? `<span class="lb ring" title="Кольцевая олимпийская">О</span>` : "");
-      const names = ls.map(li => METRO_LINES[li].n).concat(s && s.ring ? ["Кольцевая"] : []);
+      view.querySelectorAll("[data-o]").forEach(el => { if (el.dataset.o.split(" ").includes(id)) el.classList.add("on"); });
+      view.querySelectorAll(".rnode, .rlabel").forEach(el => { if (rel.has(el.dataset.id)) el.classList.add("on"); });
+      view.querySelectorAll(`[data-id="${id}"]`).forEach(el => el.classList.add("cur"));
+      const nk2 = (kidsOf[id] || []).length, np = (unionsOf[id] || []).length;
       panel.className = "mappanel k-" + g.k;
       panel.innerHTML = `<button type="button" class="mpclose" aria-label="Снять выделение">×</button>
         <b>${esc(g.n)}</b>${g.gr ? ` <span class="mpgr" lang="grc">${esc(g.gr)}</span>` : ""}
         <p>${esc(g.d ? g.d[0].toUpperCase() + g.d.slice(1) : D.kinds[g.k].one)}.</p>
-        ${names.length ? `<p class="mpfam">${badges} ${names.length > 1 ? "Пересадка: " : "Линия: "}${esc(names.join(", "))}</p>` : ""}
+        <p class="mpfam">${(g.p || []).length ? "Родители: " + (g.p || []).map(x => esc(by[x].n)).join(" и ") + ". " : ""}${np ? "Союзов: " + np + ". " : ""}${nk2 ? "Детей: " + nk2 + "." : ""}</p>
         <p class="mplinks"><a href="#/g/${id}">Страница персонажа</a> <a href="#/map/${id}">На всём древе</a></p>`;
       panel.hidden = false;
-      panel.querySelector(".mpclose").addEventListener("click", () => selectStation(null));
+      panel.querySelector(".mpclose").addEventListener("click", () => select(null));
       if (move) center(id, Math.max(k, 0.9));
     }
     const pts = new Map();
     let moved = 0, downEl = null, pinch = null;
     view.addEventListener("pointerdown", e => {
-      if (e.target.closest(".maptools, .mappanel, .mlegend")) return;
+      if (e.target.closest(".maptools, .mappanel, .maphint")) return;
       view.setPointerCapture(e.pointerId);
       pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (pts.size === 1) { moved = 0; downEl = e.target.closest(".mtransfer") ? null : e.target.closest("[data-st], .mline, .mbadge"); view.classList.add("drag"); }
+      if (pts.size === 1) { moved = 0; downEl = e.target.closest("[data-id]"); view.classList.add("drag"); }
       if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) }; }
     });
     view.addEventListener("pointermove", e => {
@@ -1720,11 +1664,7 @@ body.mapmode main.wrap { max-width: none; padding: 0; min-height: 0; }
       if (pts.size < 2) pinch = null;
       if (pts.size === 0) {
         view.classList.remove("drag");
-        if (moved < 6) {
-          if (downEl && downEl.dataset.st) selectStation(downEl.dataset.st === "oceanus" ? "oceanus" : downEl.dataset.st);
-          else if (downEl && downEl.dataset.line != null) selectLine(+downEl.dataset.line);
-          else selectStation(null);
-        }
+        if (moved < 6) select(downEl ? downEl.dataset.id : null);
         downEl = null;
       }
     };
@@ -1736,43 +1676,27 @@ body.mapmode main.wrap { max-width: none; padding: 0; min-height: 0; }
       if (keys[e.key]) { tx += keys[e.key][0]; ty += keys[e.key][1]; apply(); e.preventDefault(); }
       else if (e.key === "+" || e.key === "=") { zoomAt(view.clientWidth / 2, view.clientHeight / 2, 1.25); e.preventDefault(); }
       else if (e.key === "-") { zoomAt(view.clientWidth / 2, view.clientHeight / 2, 0.8); e.preventDefault(); }
-      else if (e.key === "Escape") selectStation(null);
+      else if (e.key === "Escape") select(null);
     });
     view.addEventListener("wheel", e => {
-      if (e.target.closest(".maptools, .mappanel, .mlegend")) return;
+      if (e.target.closest(".maptools, .mappanel")) return;
       e.preventDefault();
       const r = view.getBoundingClientRect(), unit = e.deltaMode === 1 ? 32 : e.deltaMode === 2 ? view.clientHeight : 1;
       if (e.ctrlKey || e.metaKey) zoomAt(e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * unit * 0.0025));
       else if (e.shiftKey && !e.deltaX) { tx -= e.deltaY * unit; apply(); }
       else { tx -= e.deltaX * unit; ty -= e.deltaY * unit; apply(); }
     }, { passive: false });
-    document.getElementById("mzin").addEventListener("click", () => zoomAt(view.clientWidth / 2, view.clientHeight / 2, 1.3));
-    document.getElementById("mzout").addEventListener("click", () => zoomAt(view.clientWidth / 2, view.clientHeight / 2, 1 / 1.3));
-    document.getElementById("mzfit").addEventListener("click", () => { selectStation(null); fit(); });
-    document.getElementById("mleg").addEventListener("click", e => {
-      legend.hidden = !legend.hidden;
-      e.currentTarget.setAttribute("aria-expanded", String(!legend.hidden));
-    });
-    legend.addEventListener("click", e => {
-      const b = e.target.closest("button");
-      if (!b) return;
-      if (b.dataset.ring) selectLine(null, true);
-      else if (b.dataset.transfers) selectTransfers();
-      else selectLine(+b.dataset.line);
-      if (window.innerWidth < 900) { legend.hidden = true; document.getElementById("mleg").setAttribute("aria-expanded", "false"); }
-    });
-    const mq = document.getElementById("mq");
-    const find = () => {
-      const q = norm(mq.value);
-      const hit = M.stations.find(s => norm(by[s.id].n) === q) || M.stations.find(s => norm(by[s.id].n).startsWith(q));
-      if (hit) { selectStation(hit.id, true); mq.blur(); }
-    };
-    mq.addEventListener("change", find);
-    mq.addEventListener("keydown", e => { if (e.key === "Enter") { find(); e.preventDefault(); } });
+    document.getElementById("rzin").addEventListener("click", () => zoomAt(view.clientWidth / 2, view.clientHeight / 2, 1.3));
+    document.getElementById("rzout").addEventListener("click", () => zoomAt(view.clientWidth / 2, view.clientHeight / 2, 1 / 1.3));
+    document.getElementById("rzfit").addEventListener("click", () => { select(null); fit(); });
+    const rq = document.getElementById("rq");
+    const find = () => { const id = findId(rq.value); if (id && nd[id]) { select(id, true); rq.blur(); } };
+    rq.addEventListener("change", find);
+    rq.addEventListener("keydown", e => { if (e.key === "Enter") { find(); e.preventDefault(); } });
     const onResize = () => { fitHeight(); apply(); };
     window.addEventListener("resize", onResize);
-    metroCleanup = () => { window.removeEventListener("resize", onResize); document.body.classList.remove("mapmode"); };
-    if (focusId && st[focusId]) selectStation(focusId, true); else fit();
+    radialCleanup = () => { window.removeEventListener("resize", onResize); document.body.classList.remove("mapmode"); };
+    if (focusId && nd[focusId]) select(focusId, true); else fit();
   }
 
   /* ---------- маршруты ---------- */
@@ -1781,7 +1705,7 @@ body.mapmode main.wrap { max-width: none; padding: 0; min-height: 0; }
     const parts = location.hash.replace(/^#\/?/, "").split("/").filter(Boolean).map(decodeURIComponent);
     redraw = null;
     if (mapCleanup) { mapCleanup(); mapCleanup = null; }
-    if (metroCleanup) { metroCleanup(); metroCleanup = null; }
+    if (radialCleanup) { radialCleanup(); radialCleanup = null; }
     const [r, x, y, z] = parts;
     document.title = "Родословная греческих богов";
     const navKey = r === "v" || r === "vetvi" ? "vetvi" : r === "all" ? "all" : r === "path" ? "path" : r === "map" ? "map" : "";
@@ -1794,7 +1718,8 @@ body.mapmode main.wrap { max-width: none; padding: 0; min-height: 0; }
     else if (r === "all") renderAll(x);
     else if (r === "path") renderPath(x, y, z === "v");
     else if (r === "map") renderMap(x);
-    else if (r === "metro") renderMetro(x);
+    else if (r === "radial") renderRadial(x);
+    else if (r === "metro") { location.replace("#/radial"); return; }
     else renderMissing();
     if (r !== "vetvi" && !(r === "all" && x) && key !== lastRoute) window.scrollTo(0, 0);
     lastRoute = key;
